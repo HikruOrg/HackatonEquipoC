@@ -1,0 +1,18 @@
+[
+  {
+    "id": "q1",
+    "text": "Can you describe your experience working in a tech team?"
+  },
+  {
+    "id": "q2",
+    "text": "How do you usually communicate with your team when working remotely?"
+  },
+  {
+    "id": "q3",
+    "text": "What tools or apps do you use most at work?"
+  },
+  {
+    "id": "q4",
+    "text": "How do you handle deadlines or last-minute changes?"
+  }
+]

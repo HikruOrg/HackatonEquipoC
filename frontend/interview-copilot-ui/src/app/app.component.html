@@ -1,0 +1,132 @@
+<div class="page">
+  <h1>Interview Copilot + Insight</h1>
+
+  <!-- Register -->
+  <section *ngIf="step==='register'">
+    <mat-card class="card">
+      <mat-card-title>Candidate Registration</mat-card-title>
+      <mat-card-content>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="w">
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="form.email">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w">
+            <mat-label>First name</mat-label>
+            <input matInput [(ngModel)]="form.firstName">
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w">
+            <mat-label>Last name</mat-label>
+            <input matInput [(ngModel)]="form.lastName">
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="onRegister()">Start</button>
+      </mat-card-actions>
+    </mat-card>
+  </section>
+
+  <!-- Questions -->
+  <section *ngIf="step==='questions'">
+    <mat-card class="card">
+      <mat-card-subtitle>Question {{currentIdx+1}} / {{questions.length}}</mat-card-subtitle>
+      <mat-card-title>{{ currentQ?.text }}</mat-card-title>
+
+      <mat-card-content>
+        <div class="controls">
+          <button mat-stroked-button color="primary" (click)="startRec()" [disabled]="recording">
+            <mat-icon>mic</mat-icon> Record
+          </button>
+          <button mat-stroked-button color="warn" (click)="stopRec()" [disabled]="!recording">
+            <mat-icon>stop</mat-icon> Stop
+          </button>
+
+          <span class="upload">
+            or Upload:
+            <input type="file" accept="audio/*" (change)="onFile($event)">
+          </span>
+        </div>
+
+        <div *ngIf="pendingFile" class="hint">Selected file: <b>{{ pendingFile.name }}</b></div>
+        <div *ngIf="errorMsg" class="err">{{errorMsg}}</div>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="submitResponse()" [disabled]="loading">
+            <mat-icon>send</mat-icon> Submit Response
+          </button>
+
+          <button mat-raised-button color="accent" (click)="nextQuestion()"
+            [disabled]="!submittedForCurrent || loading">
+            {{ isLast ? 'Finish Interview' : 'Next Question' }}
+          </button>
+        </div>
+
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+        <!-- Insights -->
+        <div *ngIf="lastResult" class="insights">
+          <h3>Transcript</h3>
+          <pre class="transcript">{{ lastResult.transcript }}</pre>
+
+          <h3>Insights</h3>
+          <div class="chips">
+            <mat-chip-set>
+              <mat-chip color="primary" selected>CEFR: {{lastResult.cefRevel}}</mat-chip>
+              <mat-chip [color]="asBadge(lastResult.rubric.problemSolving)" selected>
+                Problem Solving: {{lastResult.rubric.problemSolving}}
+              </mat-chip>
+              <mat-chip [color]="asBadge(lastResult.rubric.systemDesign)" selected>
+                System Design: {{lastResult.rubric.systemDesign}}
+              </mat-chip>
+              <mat-chip [color]="asBadge(lastResult.rubric.communication)" selected>
+                Communication: {{lastResult.rubric.communication}}
+              </mat-chip>
+            </mat-chip-set>
+          </div>
+
+          <p><b>Evidence:</b> {{ lastResult.cefrEvidence?.join(' • ') }}</p>
+          <p><b>Strengths:</b> {{ lastResult.strengths?.join(' • ') }}</p>
+          <p><b>Concerns:</b> {{ lastResult.concerns?.join(' • ') }}</p>
+
+          <h3>Follow-ups</h3>
+          <mat-list dense>
+            <mat-list-item *ngFor="let f of lastResult.followUps">
+              <span matListItemTitle><b>{{f.question}}</b></span>
+              <span matListItemLine>“{{f.groundingQuote}}”</span>
+            </mat-list-item>
+          </mat-list>
+          <button mat-stroked-button (click)="copyFollowUps()">
+            <mat-icon>content_copy</mat-icon> Copy follow-ups
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </section>
+
+  <!-- Summary -->
+  <section *ngIf="step==='summary'">
+  <mat-card class="card">
+    <mat-card-title>Thank you for your time!</mat-card-title>
+    <mat-card-content>
+      <p>Your interview has been submitted successfully.</p>
+      <p>Your assessed English level is:</p>
+      <h2 style="margin:8px 0"><b>{{ finalLevel ?? '—' }}</b></h2>
+
+      <h3>Follow-ups Recap</h3>
+      <mat-list>
+        <ng-container *ngFor="let x of allResults">
+          <mat-list-item>
+            <span matListItemTitle><b>{{ x.q.text }}</b></span>
+          </mat-list-item>
+          <mat-list dense>
+            <mat-list-item *ngFor="let f of x.r.followUps">
+              • {{f.question}} — “{{f.groundingQuote}}”
+            </mat-list-item>
+          </mat-list>
+        </ng-container>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</section>
+</div>

@@ -1,0 +1,6 @@
+@InterviewCopilotInsight_HostAddress = http://localhost:5135
+
+GET {{InterviewCopilotInsight_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

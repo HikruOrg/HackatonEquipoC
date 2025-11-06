@@ -1,0 +1,123 @@
+# =========================
+# Root / OS / Editors
+# =========================
+# SO
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.code-workspace
+
+# Logs genéricos
+*.log
+logs/
+[Ll]og/
+[Ll]ogs/
+
+# =========================
+# .NET / Backend (Minimal API)
+# =========================
+# Solución/IDE
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build / obj / bin
+[Bb]in/
+[Oo]bj/
+bld/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Artefactos y resultados
+artifacts/
+TestResults/
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.binlog
+
+# Archivos de locking antiguos
+project.lock.json
+project.fragment.lock.json
+
+# Publicaciones
+**/publish/
+**/PublishProfiles/
+
+# Scaffolding
+ScaffoldingReadMe.txt
+
+# Paquetes NuGet (no publicar paquetes generados)
+*.nupkg
+*.snupkg
+
+# Herramientas/análisis
+_ReSharper.*/
+*.DotSettings.user
+*.sarif
+
+# Cobertura
+coverage/
+CodeCoverage/
+
+# Config locales / secretos (ajusta según tu política)
+**/appsettings.*.Local.json
+**/appsettings.*.local.json
+**/secrets.json
+
+# (Opcional) Ignorar launchSettings si cada dev usa puertos distintos
+**/Properties/launchSettings.json
+
+# =========================
+# Frontend / Angular (frontend/interview-copilot-ui)
+# =========================
+# Dependencias y builds
+/frontend/interview-copilot-ui/node_modules/
+#/frontend/interview-copilot-ui/package-lock.json    # NO ignores si quieres lockfile en VCS
+/frontend/interview-copilot-ui/dist/
+
+# Cachés Angular y herramientas
+/frontend/interview-copilot-ui/.angular/
+/frontend/interview-copilot-ui/.cache/
+/frontend/interview-copilot-ui/.sass-cache/
+/frontend/interview-copilot-ui/.eslintcache
+/frontend/interview-copilot-ui/.stylelintcache
+
+# Cobertura
+/frontend/interview-copilot-ui/coverage/
+
+# Entornos locales
+/frontend/interview-copilot-ui/.env
+/frontend/interview-copilot-ui/.env.*.local
+/frontend/interview-copilot-ui/.npmrc
+/frontend/interview-copilot-ui/.yarnrc.yml
+
+# Gestores de paquetes (errores/cachés)
+/frontend/interview-copilot-ui/npm-debug.log*
+/frontend/interview-copilot-ui/yarn-error.log
+/frontend/interview-copilot-ui/.pnpm-store
+/frontend/interview-copilot-ui/pnpm-lock.yaml   # Inclúyelo si usas pnpm y quieres lockfile
+# /frontend/interview-copilot-ui/yarn.lock      # Inclúyelo si usas yarn y quieres lockfile
+
+# SO/editor dentro del frontend
+/frontend/interview-copilot-ui/.DS_Store
+/frontend/interview-copilot-ui/Thumbs.db
+
+# =========================
+# Monorepo-friendly (si agregas más apps en el futuro)
+# =========================
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+**/.env
+**/.env.*.local
